@@ -1,0 +1,54 @@
+import math
+
+import random
+
+high_score = []
+
+print("Welcome to the Number Guessing Game.")
+name = input("What is your name?    ")
+
+def start_game():
+    if len(high_score) > 0:
+        high_scorer = min(high_score)
+        print("The score to beat is:", high_scorer, "tries.")
+    else:
+        print("There is no current top scorer! Good luck!")
+    rand_num = random.randint(1, 10)
+    guess_count = 1
+    try:
+        user_num = int(input("Guess a number between 1 and 10:    "))
+        while user_num != rand_num:
+            if user_num > 10:
+                print("Sorry, that's not within the accepted range. Please try again.")
+                guess_count += 1
+                user_num = int(input("Guess a number between 1 and 10:    "))
+            elif user_num > rand_num:
+                print("Too high.")
+                guess_count += 1
+                user_num = int(input("Guess a number between 1 and 10:    "))
+            elif user_num < rand_num:
+                print("too low.")
+                guess_count += 1
+                user_num = int(input("Guess a number between 1 and 10:    "))
+
+        else:
+            print("Winner! That took", str(guess_count), "tries. Great work, {}!".format(name))
+            high_score.append(guess_count)
+    except ValueError:
+        print("Sorry! That is not a valid value! Please try again.")
+        user_num = int(input("Guess a number between 1 and 10:    "))
+    else:
+        return user_num
+
+
+
+start_game()
+
+while True:
+
+    play_again = input("Would you like to play again?   Y/N  ")
+    if play_again.lower() == 'y':
+        start_game()
+    else:
+        print("See ya!")
+        break
